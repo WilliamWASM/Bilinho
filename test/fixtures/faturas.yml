@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  valor_fatura: 9.99
+  vencimento: 2026-03-16
+  status: MyText
+  matricula: one
+
+two:
+  valor_fatura: 9.99
+  vencimento: 2026-03-16
+  status: MyText
+  matricula: two
