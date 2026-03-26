@@ -5,6 +5,7 @@ class MatriculasController < ApplicationController
   # GET /matriculas.json
   def index
     @matriculas = Matricula.all
+    render json: @matriculas, status: :ok
   end
 
   # GET /matriculas/1

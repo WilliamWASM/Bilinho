@@ -16,7 +16,6 @@ class FaturasController < ApplicationController
   # POST /faturas.json
   def create
     @fatura = Fatura.new(fatura_params)
-
     if @fatura.save
       render :show, status: :created, location: @fatura
     else
@@ -27,6 +26,7 @@ class FaturasController < ApplicationController
   # PATCH/PUT /faturas/1
   # PATCH/PUT /faturas/1.json
   def update
+    @fatura = Fatura.find(params[:id])
     if @fatura.update(fatura_params)
       render :show, status: :ok, location: @fatura
     else

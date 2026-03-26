@@ -8,13 +8,13 @@ class Aluno < ApplicationRecord
   validates :telefone,presence:true,numericality:true
   validates :gender,presence:true, format: {with: /\A[mf]\z/}
   validates :payment_method,presence:true, inclusion: {in:%w(boleto cartao pix)}
-
   before_validation :normalize
   
   def normalize
+      Date.strptime(data_nascimento, '%d-%m-%Y')#data formatação certa
       self.payment_method.try(:downcase!) #pagamento
-      self.email_confirmation.try(:downcase!)#email de confirmação
       self.email.try(:downcase!)#email
+      self.email_confirmation.try(:downcase!)#email de confirmação
       self.gender.try(:downcase!)#genero
   end
   

@@ -3,8 +3,8 @@ class Matricula < ApplicationRecord
   belongs_to :institution
   belongs_to :aluno
   has_many :faturas
-  validates :valor_total,presence:true,numericality:{greater_than:0}
-  validates :qtd_faturas,presence:true,numericality: {greater_than_or_equal_to: 1}
+  validates :valor_total,presence:true, numericality:{greater_than:0}
+  validates :qtd_faturas,presence:true, numericality: {greater_than_or_equal_to: 1}
   validates :dia_vencimento,presence:true, numericality:{greater_than_or_equal_to: 1, less_than_or_equal_to: 31}
   validates :nome_curso,presence:true
   
@@ -21,6 +21,7 @@ class Matricula < ApplicationRecord
             )
         end
     end
+
     def vencimento_fatura_regra #regra do vencimento onde se a data do vencimento for menor que a data de hoje cai no proximo mes
       hoje = Date.today
           if dia_vencimento < hoje.day
@@ -28,7 +29,8 @@ class Matricula < ApplicationRecord
           else
             hoje.change(day: dia_vencimento)
           end
-    rescue 
+    rescue ArgumentError 
           hoje.next_month.end_of_month
+          ver sobre os possiveis erros
     end
 end
