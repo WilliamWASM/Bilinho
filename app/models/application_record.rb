@@ -4,6 +4,6 @@ class ApplicationRecord < ActiveRecord::Base
 
     def entidade_create
     self.status = "enabled"
-  end
+    end
 
 end
