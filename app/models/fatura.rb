@@ -5,8 +5,17 @@ class Fatura < ApplicationRecord
   validates :status,presence:true,inclusion: {in: %w(Aberta Atrasada Paga)}
   
   after_initialize :default_set, if: :new_record?
+  after_find :att_se_atrasada
 
-  private def default_set
+
+
+  private 
+  
+  def default_set
         self.status = "Aberta"
+  end
+
+  def att_se_atrasada
+        update_columns(status: "Atrasada")  if status == "Aberta" && vencimento < Date.today
   end
 end

@@ -8,6 +8,7 @@ class CreateAlunos < ActiveRecord::Migration[8.1]
       t.string :gender
       t.string :payment_method
       t.string :email
+      t.string :status
 
       t.timestamps
     end

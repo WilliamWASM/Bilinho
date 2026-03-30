@@ -7,7 +7,9 @@ class Matricula < ApplicationRecord
   validates :qtd_faturas,presence:true, numericality: {greater_than_or_equal_to: 1}
   validates :dia_vencimento,presence:true, numericality:{greater_than_or_equal_to: 1, less_than_or_equal_to: 31}
   validates :nome_curso,presence:true
+  validates :status, inclusion: {in: %w(enabled disabled)}
   
+  before_validation :entidade_create, on: :create
   after_create :criacao_faturas
   private
     def criacao_faturas #cria as faturas com a regra do vencimento
@@ -24,13 +26,12 @@ class Matricula < ApplicationRecord
 
     def vencimento_fatura_regra #regra do vencimento onde se a data do vencimento for menor que a data de hoje cai no proximo mes
       hoje = Date.today
-          if dia_vencimento < hoje.day
+          if dia_vencimento <= hoje.day
             hoje.next_month.change(day: dia_vencimento)
           else
             hoje.change(day: dia_vencimento)
           end
     rescue ArgumentError 
           hoje.next_month.end_of_month
-          ver sobre os possiveis erros
     end
 end

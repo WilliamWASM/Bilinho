@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
+  resources :matriculas do
+    resources :faturas, only: [:index]
+  end
   resources :faturas
-  resources :matriculas
   resources :alunos
   resources :institutions
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

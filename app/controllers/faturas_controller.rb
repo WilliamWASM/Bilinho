@@ -4,7 +4,10 @@ class FaturasController < ApplicationController
   # GET /faturas
   # GET /faturas.json
   def index
-    @faturas = Fatura.all
+    return @faturas = Fatura.all if params[:matricula_id].blank? #se nao for pedido para uma matricula específica
+
+    @matricula = Matricula.find(params[:matricula_id]) 
+    @faturas = @matricula.faturas #procura as faturas para a matricula com id especifico
   end
 
   # GET /faturas/1
