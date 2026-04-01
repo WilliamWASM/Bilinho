@@ -7,8 +7,6 @@ class Fatura < ApplicationRecord
   after_initialize :default_set, if: :new_record?
   after_find :att_se_atrasada
 
-
-
   private 
   
   def default_set

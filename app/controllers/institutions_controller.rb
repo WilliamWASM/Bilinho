@@ -37,7 +37,8 @@ class InstitutionsController < ApplicationController
   # DELETE /institutions/1
   # DELETE /institutions/1.json
   def destroy
-    @institution.destroy!
+    @institution.update_columns(status: 'disabled')
+    @institution.alunos.update_all(status: 'disabled')
   end
 
   private

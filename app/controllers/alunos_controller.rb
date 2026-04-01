@@ -4,7 +4,7 @@ class AlunosController < ApplicationController
   # GET /alunos
   # GET /alunos.json
   def index
-    @alunos = Aluno.all
+    @alunos = Aluno.where(status: 'enabled')
   end
 
   # GET /alunos/1
@@ -37,7 +37,8 @@ class AlunosController < ApplicationController
   # DELETE /alunos/1
   # DELETE /alunos/1.json
   def destroy
-    @aluno.destroy!
+    @aluno.update_columns(status: 'disabled')
+    @aluno.matriculas.update_all(status: 'disabled')
   end
 
   private

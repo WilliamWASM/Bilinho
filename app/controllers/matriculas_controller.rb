@@ -38,7 +38,7 @@ class MatriculasController < ApplicationController
   # DELETE /matriculas/1
   # DELETE /matriculas/1.json
   def destroy
-    @matricula.destroy!
+    @matricula.update_columns(status: 'disabled')
   end
 
   private

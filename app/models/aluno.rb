@@ -2,6 +2,7 @@ class Aluno < ApplicationRecord
   require 'cpf_cnpj'
   require 'validators'
   has_many :matriculas
+  has_many :faturas
   validates :name, presence: true, uniqueness: {case_sensitive:false}
   validates :cpf, presence: true, uniqueness: true,cpf:true, numericality:true
   validates :data_nascimento, presence:true
@@ -16,6 +17,16 @@ class Aluno < ApplicationRecord
   before_validation :normalize
 
   private
+    
+    def checar_inadimplencia!# testar criando uma fatura atrasada e ver se o aluno é desabilitado estaticamente mesmo
+      faturas_atrasadas = self.faturas.where(status: 'Atrasada').count
+
+      if faturas_atrasadas >=3 && self.status == 'enabled'
+        self.update_columns(status: 'disabled')
+        self.matriculas.update_all(status: 'disabled')
+      end
+    end
+
     def normalize
         data_nascimento.strftime("%d/%m/%Y")
         # Date.strptime(data_nascimento, '%d-%m-%Y')#data formatação certa
@@ -24,6 +35,4 @@ class Aluno < ApplicationRecord
         self.email_confirmation.try(:downcase!)#email de confirmação
         self.gender.try(:downcase!)#genero
     end
-  
-
-end 
+end
