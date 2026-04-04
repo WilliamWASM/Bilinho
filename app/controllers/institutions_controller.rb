@@ -38,7 +38,8 @@ class InstitutionsController < ApplicationController
   # DELETE /institutions/1.json
   def destroy
     @institution.update_columns(status: 'disabled')
-    @institution.alunos.update_all(status: 'disabled')
+    @institution.matriculas.update_all(status: 'disabled')
+    head :no_content
   end
 
   private

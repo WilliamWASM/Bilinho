@@ -14,6 +14,9 @@ class Fatura < ApplicationRecord
   end
 
   def att_se_atrasada
-        update_columns(status: "Atrasada")  if status == "Aberta" && vencimento < Date.today
+    if status == "Aberta" && vencimento < Date.today
+      update_columns(status: "Atrasada")
+      matricula.aluno.checar_inadimplencia!
+    end
   end
 end

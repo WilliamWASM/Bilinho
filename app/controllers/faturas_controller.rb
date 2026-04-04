@@ -4,6 +4,11 @@ class FaturasController < ApplicationController
   # GET /faturas
   # GET /faturas.json
   def index
+    unless params[:aluno_id].blank?
+      @aluno = Aluno.find(params[:aluno_id])
+      return @faturas = @aluno.faturas
+    end
+
     return @faturas = Fatura.all if params[:matricula_id].blank? #se nao for pedido para uma matricula específica
 
     @matricula = Matricula.find(params[:matricula_id]) 
@@ -41,6 +46,7 @@ class FaturasController < ApplicationController
   # DELETE /faturas/1.json
   def destroy
     @fatura.destroy!
+    head :no_content
   end
 
   private

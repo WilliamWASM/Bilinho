@@ -39,6 +39,7 @@ class AlunosController < ApplicationController
   def destroy
     @aluno.update_columns(status: 'disabled')
     @aluno.matriculas.update_all(status: 'disabled')
+    head :no_content
   end
 
   private

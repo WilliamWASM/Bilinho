@@ -3,7 +3,10 @@ Rails.application.routes.draw do
     resources :faturas, only: [:index]
   end
   resources :faturas
-  resources :alunos
+  resources :alunos do
+    resources :matriculas, only: [:index]
+    resources :faturas, only: [:index]
+  end
   resources :institutions
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

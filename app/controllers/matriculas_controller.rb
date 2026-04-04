@@ -5,7 +5,6 @@ class MatriculasController < ApplicationController
   # GET /matriculas.json
   def index
     @matriculas = Matricula.all
-    render json: @matriculas, status: :ok
   end
 
   # GET /matriculas/1
@@ -39,6 +38,7 @@ class MatriculasController < ApplicationController
   # DELETE /matriculas/1.json
   def destroy
     @matricula.update_columns(status: 'disabled')
+    head :no_content
   end
 
   private

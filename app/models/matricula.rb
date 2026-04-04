@@ -9,9 +9,20 @@ class Matricula < ApplicationRecord
   validates :nome_curso,presence:true
   validates :status, inclusion: {in: %w(enabled disabled)}
   
+  validate :checar_aluno_ativo, on: :create
+  validate :checar_instituicao_ativa, on: :create
   before_validation :entidade_create, on: :create
   after_create :criacao_faturas
   private
+
+    def checar_aluno_ativo #aluno desabilitado não pode realizar matricula
+      return errors.add(:aluno, "está desativado/inadimplente e não pode realizar novas matrículas") if aluno.status == 'disabled'
+    end
+
+    def checar_instituicao_ativa #instituicao desabilitada não pode receber matricula
+      return errors.add(:institution, "está desativada e não pode receber novas matrículas") if institution.status == 'disabled'
+    end
+    
     def criacao_faturas #cria as faturas com a regra do vencimento
         valor_parcela = valor_total/qtd_faturas
         data_inicio = vencimento_fatura_regra
