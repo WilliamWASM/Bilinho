@@ -50,6 +50,6 @@ class AlunosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def aluno_params
-      params.expect(aluno: [ :name, :cpf, :data_nascimento, :telefone, :gender, :payment_method, :email, :email_confirmation ])
+      params.expect(aluno: [ :name, :cpf, :data_nascimento, :telefone, :gender, :payment_method, :email, :email_confirmation, :status ])
     end
 end

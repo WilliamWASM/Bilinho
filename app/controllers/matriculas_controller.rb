@@ -49,6 +49,6 @@ class MatriculasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def matricula_params
-      params.expect(matricula: [ :valor_total, :qtd_faturas, :dia_vencimento, :nome_curso, :institution_id, :aluno_id ])
+      params.expect(matricula: [ :valor_total, :qtd_faturas, :dia_vencimento, :nome_curso, :institution_id, :aluno_id, :status ])
     end
 end
